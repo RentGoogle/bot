@@ -1,7 +1,7 @@
 import telebot
 bot = telebot.TeleBot("5789503010:AAFoNzeSH58unG0CbinReHzrN2GepVBC7JM")
 
-@bot.message_handler(commands=['calc'])
+@bot.message_handler(commands=['/start'])
 def calculator(message):
     # Get the text from the message
     text = message.text
