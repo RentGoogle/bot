@@ -1,38 +1,32 @@
 import telebot
-bot = telebot.TeleBot("5789503010:AAFoNzeSH58unG0CbinReHzrN2GepVBC7JM")
+from telebot.types import ReplyKeyboardMarkup, KeyboardButton
 
-@bot.message_handler(commands=['/start'])
-def calculator(message):
-    # Get the text from the message
-    text = message.text
-    # Split the text into an array of operands and operators
-    tokens = text.split()
-    # Check if there are enough tokens to make a calculation
-    if len(tokens) < 3:
-        bot.send_message(message.chat.id, "Not enough operands and operators!")
-    else:
-        # Initialize the result
-        result = 0
-        # Get the first operand and assign it to the result
-        result = float(tokens[1])
-        # Iterate over the rest of the tokens
-        for i in range(2, len(tokens), 2):
-            # Get the operator and the operand
-            operator = tokens[i]
-            operand = float(tokens[i+1])
-            # Do the calculation
-            if operator == "+":
-                result = result + operand
-            elif operator == "-":
-                result = result - operand
-            elif operator == "*":
-                result = result * operand
-            elif operator == "/":
-                result = result / operand
-            else:
-                bot.send_message(message.chat.id, "Invalid operator!")
-                return
-        # Send the result back to the user
-        bot.send_message(message.chat.id, str(result))
+# Enter your bot's API token here
+TOKEN = '6156324948:AAFKs74NA_QIBWMS6l4mgjNK1R0EY3zKZ3Q'
 
+# Create a new bot instance
+bot = telebot.TeleBot(TOKEN)
+
+# Define the button and its label
+button_label = 'Click me!'
+button = KeyboardButton(button_label)
+
+# Create the reply markup with the button
+reply_markup = ReplyKeyboardMarkup(one_time_keyboard=True)
+reply_markup.add(button)
+
+# Define the handler for the /start command
+@bot.message_handler(commands=['start'])
+def start_handler(message):
+    bot.send_message(chat_id=message.chat.id,
+                     text='Welcome to my bot! Click the button below to continue:',
+                     reply_markup=reply_markup)
+
+# Define the handler for the button click
+@bot.message_handler(func=lambda message: message.text == button_label)
+def button_handler(message):
+    bot.send_message(chat_id=message.chat.id,
+                     text='You clicked the button!')
+
+# Start the bot
 bot.polling()
