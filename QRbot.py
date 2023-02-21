@@ -6,7 +6,7 @@ from aiogram.types import ParseMode
 from aiogram.utils import executor
 
 # Вказуємо токен вашого бота
-TOKEN = '5640232171:AAFgCbazixwq0if2eYZM7cW9KpVTQDPYoUk'
+TOKEN = '6009049832:AAGfzCGjdySm93hGVDNhJvMQa1zGZmMhFZk'
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
